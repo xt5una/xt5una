@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Java8新特性——Optional | xt5una</title><meta name="keywords" content="学习笔记,Java8新特性"><meta name="author" content="xt5una"><meta name="copyright" content="xt5una"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java8 OptionalOptional是一个包装类。类中包装的对象可以为null也可以为非null，简单来讲就是把null封装了一层， 防止出现空指针异常   Optional优化null判断看一段代码： 123456public static String getAge(Student student)&amp;#123;	if(null &#x3D;&#x3D; student)&amp;#123;		return &amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8新特性——Optional">
+<meta property="og:url" content="http://example.com/post/aec29945.html">
+<meta property="og:site_name" content="xt5una">
+<meta property="og:description" content="Java8 OptionalOptional是一个包装类。类中包装的对象可以为null也可以为非null，简单来讲就是把null封装了一层， 防止出现空指针异常   Optional优化null判断看一段代码： 123456public static String getAge(Student student)&amp;#123;	if(null &#x3D;&#x3D; student)&amp;#123;		return &amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg">
+<meta property="article:published_time" content="2020-07-30T07:32:50.000Z">
+<meta property="article:modified_time" content="2022-08-28T12:34:56.373Z">
+<meta property="article:author" content="xt5una">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="Java8新特性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/aec29945"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java8新特性——Optional',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-28 20:34:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">xt5una</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java8新特性——Optional</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-30T07:32:50.000Z" title="发表于 2020-07-30 15:32:50">2020-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-28T12:34:56.373Z" title="更新于 2022-08-28 20:34:56">2022-08-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java8新特性——Optional"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Java8-Optional"><a href="#Java8-Optional" class="headerlink" title="Java8 Optional"></a>Java8 Optional</h2><p>Optional是一个包装类。类中包装的对象可以为<code>null</code>也可以为<code>非null</code>，简单来讲就是把<code>null</code>封装了一层， 防止出现空指针异常</p>
+<!--truncate-->
+
+<h3 id="Optional优化null判断"><a href="#Optional优化null判断" class="headerlink" title="Optional优化null判断"></a>Optional优化null判断</h3><p>看一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getAge</span><span class="params">(Student student)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="literal">null</span> == student)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;Unkown&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">        <span class="keyword">return</span> student.getAge();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法获取学生年龄，为了防止Student对象为空，做了防御性检查，我们可以使用Optional优化该段代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getAge</span><span class="params">(Student student)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> Optional.ofNullable(student).map(Student::getAge()).orElse(<span class="string">&quot;Unkown&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，Optional结合Lambda表达式，可以让代码看起来更加优雅</p>
+<h3 id="创建Optional对象"><a href="#创建Optional对象" class="headerlink" title="创建Optional对象"></a>创建Optional对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Optional</span>&lt;T&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Optional&lt;?&gt; EMPTY = <span class="keyword">new</span> <span class="title class_">Optional</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> T value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Optional</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.value = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Optional&lt;T&gt; <span class="title function_">empty</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">        Optional&lt;T&gt; t = (Optional&lt;T&gt;) EMPTY;</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Optional</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.value = Objects.requireNonNull(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Optional&lt;T&gt; <span class="title function_">of</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Optional</span>&lt;&gt;(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Optional&lt;T&gt; <span class="title function_">ofNullable</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value == <span class="literal">null</span> ? empty() : of(value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到Optional类的构造方法设置为了私有，所以不能通过<code>new</code>来创建，它提供了三个静态方法来创建Optional对象，<code>of(T value)</code>、<code>ofNullable(T value)</code>、<code>empty(T value)</code></p>
+<ol>
+<li><code>of(T value)</code>：创建一个包装值非<code>null</code>的Optional对象</li>
+<li><code>ofNullable(T value)</code>：创建一个包装值可以为<code>null</code>的Optional对象</li>
+<li><code>empty(T value)</code>：创建一个包装值为<code>null</code>的Optional对象</li>
+</ol>
+<h3 id="Optional类的常用方法"><a href="#Optional类的常用方法" class="headerlink" title="Optional类的常用方法"></a>Optional类的常用方法</h3><ol>
+<li><p><code>T get()</code>：获取Optional对象的包装值，如果包装值为<code>null</code>，则抛出<code>NoSuchElementException(&quot;No value present&quot;);</code>异常</p>
+</li>
+<li><p><code>boolean isPresent()</code>：判断Optional对象的包装值是否为<code>null</code></p>
+</li>
+<li><p><code>void ifPresent(Consumer&lt;? super T&gt; consumer)</code>：如果Optional包装值不为<code>null</code>，则执行一些动作，否则什么也不做</p>
+</li>
+<li><p><code>Optional&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate)</code>：<code>filter</code>接受一个<code>Predicate</code>对象，可以实现对Optional对象包装值的过滤，如果满足条件则返回该Optional对象，不满足则返回空Optional对象</p>
+</li>
+<li><p><code>Optional&lt;U&gt; map(Function&lt;? super T, ? extends U&gt; mapper)</code>：<code>map</code>方法传入一个函数进行运算，如果Optional对象的包装值为<code>null</code>，或经过函数运算后返回值为<code>null</code>则返回一个包装值为<code>null</code>的Optional对象，否则返回经函数处理后的Optional对象，包装对象的类型可能改变</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;Integer&gt; map = Optional.ofNullable(student).map(Student::getAge);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Optional&lt;U&gt; flatMap(Function&lt;? super T, Optional&lt;U&gt;&gt; mapper)</code>：<code>flatMap</code>方法类似于<code>map</code>方法，但是该方法可以返回一个新的Optional对象，举例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;Integer&gt; flatmap = Optional.ofNullable(student)</span><br><span class="line">    								   .flatMap(s-&gt; Optional.ofNullable(s.getAge()));</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>flatmap</code>和<code>map</code>的区别是<code>map</code>方法返回值自动封装为Optional对象，而<code>flatmap</code>方法需要手动封装为Optional对象</p>
+</li>
+<li><p><code>T orElse(T other)</code>：如果Optional对象包装值不为<code>null</code>则返回包装值，否则返回<code>other</code></p>
+</li>
+<li><p><code>T orElseGet(Supplier&lt;? extends T&gt; other)</code>：与<code>orElse</code>的区别是将<code>Supplier</code>的<code>get</code>方法的返回值作为默认值</p>
+</li>
+<li><p><code>T orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)</code>：Optional对象包装值为<code>null</code>时，抛出异常，示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional.ofNullable(student).map(u -&gt; u.getAge()).orElseThrow(() -&gt; <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Unkown&quot;</span>));</span><br></pre></td></tr></table></figure></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">xt5una</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/aec29945.html">http://example.com/post/aec29945.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">xt5una</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/Java8%E6%96%B0%E7%89%B9%E6%80%A7/">Java8新特性</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/2b55084.html"><img class="prev-cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring Cloud之Feign 转发请求头(header参数)</div></div></a></div><div class="next-post pull-right"><a href="/post/8d0c03bf.html"><img class="next-cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java8新特性——Stream流</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/98bf76b6.html" title="Java8新特性——Lambda表达式"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-14</div><div class="title">Java8新特性——Lambda表达式</div></div></a></div><div><a href="/post/8d0c03bf.html" title="Java8新特性——Stream流"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-12</div><div class="title">Java8新特性——Stream流</div></div></a></div><div><a href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-16</div><div class="title">Spring Cloud之Feign 转发请求头(header参数)</div></div></a></div><div><a href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-16</div><div class="title">Gateway路由配置从数据库或Redis获取</div></div></a></div><div><a href="/post/8239bce8.html" title="Java并发编程1"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-30</div><div class="title">Java并发编程1</div></div></a></div><div><a href="/post/1b30ed52.html" title="Java并发编程2"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-19</div><div class="title">Java并发编程2</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">xt5una</div><div class="author-info__description">一个乐于学习技术的胶佬</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:xtsuna@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java8-Optional"><span class="toc-number">1.</span> <span class="toc-text">Java8 Optional</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Optional%E4%BC%98%E5%8C%96null%E5%88%A4%E6%96%AD"><span class="toc-number">1.1.</span> <span class="toc-text">Optional优化null判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAOptional%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">创建Optional对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optional%E7%B1%BB%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">Optional类的常用方法</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/9fee965f.html" title="Hi there！"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hi there！"/></a><div class="content"><a class="title" href="/post/9fee965f.html" title="Hi there！">Hi there！</a><time datetime="2022-08-19T13:02:30.727Z" title="发表于 2022-08-19 21:02:30">2022-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Gateway路由配置从数据库或Redis获取"/></a><div class="content"><a class="title" href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取">Gateway路由配置从数据库或Redis获取</a><time datetime="2020-11-16T03:48:15.000Z" title="发表于 2020-11-16 11:48:15">2020-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Cloud之Feign 转发请求头(header参数)"/></a><div class="content"><a class="title" href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)">Spring Cloud之Feign 转发请求头(header参数)</a><time datetime="2020-08-16T03:38:54.000Z" title="发表于 2020-08-16 11:38:54">2020-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/aec29945.html" title="Java8新特性——Optional"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java8新特性——Optional"/></a><div class="content"><a class="title" href="/post/aec29945.html" title="Java8新特性——Optional">Java8新特性——Optional</a><time datetime="2020-07-30T07:32:50.000Z" title="发表于 2020-07-30 15:32:50">2020-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/8d0c03bf.html" title="Java8新特性——Stream流"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java8新特性——Stream流"/></a><div class="content"><a class="title" href="/post/8d0c03bf.html" title="Java8新特性——Stream流">Java8新特性——Stream流</a><time datetime="2020-06-12T05:40:55.000Z" title="发表于 2020-06-12 13:40:55">2020-06-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By xt5una</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

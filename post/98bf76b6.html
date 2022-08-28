@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Java8新特性——Lambda表达式 | xt5una</title><meta name="keywords" content="学习笔记,Java8新特性"><meta name="author" content="xt5una"><meta name="copyright" content="xt5una"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lambda表达式Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。 Lambda 允许把函数作为一个方法的参数（函数作为参数传递进方法中）。 使用 Lambda 表达式可以使代码变的更加简洁紧凑。   什么是Lambda？对于Java变量，我们可以对其进行赋值，比如： 1int value &#x3D; 233;  如果想把一块代码赋值给一个变量，在Java8之前，这个是做不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8新特性——Lambda表达式">
+<meta property="og:url" content="http://example.com/post/98bf76b6.html">
+<meta property="og:site_name" content="xt5una">
+<meta property="og:description" content="Lambda表达式Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。 Lambda 允许把函数作为一个方法的参数（函数作为参数传递进方法中）。 使用 Lambda 表达式可以使代码变的更加简洁紧凑。   什么是Lambda？对于Java变量，我们可以对其进行赋值，比如： 1int value &#x3D; 233;  如果想把一块代码赋值给一个变量，在Java8之前，这个是做不">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg">
+<meta property="article:published_time" content="2020-05-14T08:31:20.000Z">
+<meta property="article:modified_time" content="2022-08-28T12:34:56.368Z">
+<meta property="article:author" content="xt5una">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="Java8新特性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/98bf76b6"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java8新特性——Lambda表达式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-28 20:34:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">xt5una</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java8新特性——Lambda表达式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-14T08:31:20.000Z" title="发表于 2020-05-14 16:31:20">2020-05-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-28T12:34:56.368Z" title="更新于 2022-08-28 20:34:56">2022-08-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java8新特性——Lambda表达式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><p>Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。</p>
+<p>Lambda 允许把函数作为一个方法的参数（函数作为参数传递进方法中）。</p>
+<p>使用 Lambda 表达式可以使代码变的更加简洁紧凑。</p>
+<!--truncate-->
+
+<h3 id="什么是Lambda？"><a href="#什么是Lambda？" class="headerlink" title="什么是Lambda？"></a>什么是Lambda？</h3><p>对于Java变量，我们可以对其进行赋值，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> <span class="number">233</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果想把<code>一块代码</code>赋值给一个变量，在Java8之前，这个是做不到的，但是在Java8之后，我们可以使用Lambda表达式来实现，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aBlockCode = (s) -&gt; System.out.println(s);</span><br></pre></td></tr></table></figure>
+
+<p>上面，把“赋值给一个<code>变量</code>的<code>函数</code>”就是<code>Lambda表达式</code></p>
+<p>但是这里仍然有一个问题，就是变量<code>aBlockCode</code>的类型应该是什么？</p>
+<p>下面我们来介绍函数式接口</p>
+<h3 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h3><p>在Java8中，所有的Lambda的类型都是一个接口，而Lambda表达式本身，就是那段函数，就是这个接口的实现，举个例子：</p>
+<p>首先定义一个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyLambdaInterface</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">(String s)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种有且仅有一个抽象方法，但是可以有多个非抽象方法的接口，我们称为函数式接口，可以使用<code>@FunctionalInterface</code>注解标注</p>
+<p>我们给<code>aBlockCode</code>加上类型，我们就得到了一个完整的Lambda表达式声明，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyLambdaInterface</span> <span class="variable">aBlockCode</span> <span class="operator">=</span> (s) -&gt; System.out.println(s);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Lambda表达式有什么用？"><a href="#Lambda表达式有什么用？" class="headerlink" title="Lambda表达式有什么用？"></a>Lambda表达式有什么用？</h3><p>使用 Lambda 表达式可以使代码变的更加简洁紧凑。</p>
+<p>举个例子：</p>
+<p>我们要实现对一个数组进行筛选</p>
+<p>首先我们定义一个函数式接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Predicate</span>&lt;T&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">filter</span><span class="params">(T t)</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们先使用匿名内部类的方式实现这个需求，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名内部类写法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; a = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">    List&lt;Integer&gt; b = filter(a, <span class="keyword">new</span> <span class="title class_">Predicate</span>&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">filter</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> integer&gt;<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> c :</span><br><span class="line">            b)</span><br><span class="line">        System.out.println(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们再使用Lambda表达式的方式实现这个需求，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Lambda表达式写法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; a = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">    List&lt;Integer&gt; b = filter(a, x -&gt; x&gt;<span class="number">4</span>);</span><br><span class="line">    b.forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，使用Lambda表达式改写匿名内部类的实现，使代码看起来更加简洁易懂</p>
+<p>知道了什么是Lambda还有Lambda表达式的作用，下面我们来看看Lambda表达式的基础语法</p>
+<h3 id="Lambda表达式基础语法"><a href="#Lambda表达式基础语法" class="headerlink" title="Lambda表达式基础语法"></a>Lambda表达式基础语法</h3><p>在Java8中，引入了一个新的操作符<code>-&gt;</code>，该操作符称为箭头操作符或者Lambda操作符</p>
+<p>Lambda操作符把Lambda表达式拆分成了两部分</p>
+<p>左侧：Lambda表达式的参数列表</p>
+<p>右侧：Lambda表达式所需执行的功能，即Lambda体</p>
+<ol>
+<li><p>语法格式一：无参数，无返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; System.out.println(<span class="string">&quot;Hello world&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>语法格式二：有一个参数，无返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(s) -&gt; System.out.println(s);</span><br><span class="line">s -&gt; System.out.println(s); <span class="comment">//若只有一个参数，小括号可省略</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>语法格式三： 有多个参数(&gt;&#x3D;2)，且Lambda体中有多条语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Integer&gt; com = (x,y) -&gt; &#123;</span><br><span class="line">System.out.println(<span class="string">&quot;Lambda表达式&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> Integer.compare(x,y);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>语法格式四：有多个参数(&gt;&#x3D;2)，Lambda体中只有一条语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;Integer&gt; com = (x,y) -&gt; Integer.compare(x,y);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="四大核心函数式接口"><a href="#四大核心函数式接口" class="headerlink" title="四大核心函数式接口"></a>四大核心函数式接口</h3><p>在实际开发过程中，使用Lambda表达式往往不需要自己编写函数式接口，Java已经内置了我们常用的函数式接口，使我们开发更加便捷，下面是最常用到的Java内置的函数式接口</p>
+<table>
+<thead>
+<tr>
+<th>函数式接口</th>
+<th>参数类型</th>
+<th>返回类型</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumer 消费型接口</td>
+<td>T</td>
+<td>void</td>
+<td>void accept(T t);</td>
+</tr>
+<tr>
+<td>Supplier 供给型接口</td>
+<td>void</td>
+<td>T</td>
+<td>T get();</td>
+</tr>
+<tr>
+<td>Function&lt;T, R&gt; 函数型接口</td>
+<td>T</td>
+<td>R</td>
+<td>R apply(T t);</td>
+</tr>
+<tr>
+<td>Predicate 断言型接口</td>
+<td>T</td>
+<td>boolean</td>
+<td>boolean test(T t);</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p><code>Consumer&lt;T&gt;</code>消费型接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">    ConsumerTest(<span class="number">100</span>, x-&gt; System.out.println(x*x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">ConsumerTest</span><span class="params">(Integer a, Consumer&lt;Integer&gt; consumer)</span>&#123;</span><br><span class="line">    consumer.accept(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Supplier&lt;T&gt;</code>供给型接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; numList = SupplierTest(<span class="number">5</span>, ()-&gt; (<span class="type">int</span>)(Math.random()*<span class="number">100</span>));</span><br><span class="line">    numList.forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">SupplierTest</span><span class="params">(Integer a, Supplier&lt;Integer&gt; supplier)</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a ; i++) &#123;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">n</span> <span class="operator">=</span> supplier.get();</span><br><span class="line">        list.add(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Function&lt;T,R&gt;</code>函数型接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">a</span> <span class="operator">=</span> FunctionTest(<span class="number">10</span>, x-&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> x*<span class="number">200</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    System.out.println(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Integer <span class="title function_">FunctionTest</span><span class="params">(Integer a, Function&lt;Integer,Integer&gt; function)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> function.apply(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Predicate&lt;T&gt;</code>断言型接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; a = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>);</span><br><span class="line">    List&lt;Integer&gt; res = PredicateTest(a,x-&gt;&#123;</span><br><span class="line">        <span class="keyword">return</span> x &gt; <span class="number">3</span>;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    res.forEach(System.out::println);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">PredicateTest</span><span class="params">(List&lt;Integer&gt; a, Predicate&lt;Integer&gt; predicate)</span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Integer b :</span><br><span class="line">            a) &#123;</span><br><span class="line">        <span class="keyword">if</span> (predicate.test(b))&#123;</span><br><span class="line">            list.add(b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Lambda表达式是匿名内部类的语法糖，可以使代码更加简洁易懂，我们可以使用自定义的函数式接口或者Java内置的函数式接口来编写Lambda表达式，Lambda表达式还可以和Stream流，<code>Optional&lt;T&gt;</code>结合，使代码更加优雅。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">xt5una</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/98bf76b6.html">http://example.com/post/98bf76b6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">xt5una</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/Java8%E6%96%B0%E7%89%B9%E6%80%A7/">Java8新特性</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/8d0c03bf.html"><img class="prev-cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java8新特性——Stream流</div></div></a></div><div class="next-post pull-right"><a href="/post/1b30ed52.html"><img class="next-cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java并发编程2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/8d0c03bf.html" title="Java8新特性——Stream流"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-12</div><div class="title">Java8新特性——Stream流</div></div></a></div><div><a href="/post/aec29945.html" title="Java8新特性——Optional"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-30</div><div class="title">Java8新特性——Optional</div></div></a></div><div><a href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-16</div><div class="title">Spring Cloud之Feign 转发请求头(header参数)</div></div></a></div><div><a href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-16</div><div class="title">Gateway路由配置从数据库或Redis获取</div></div></a></div><div><a href="/post/8239bce8.html" title="Java并发编程1"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-30</div><div class="title">Java并发编程1</div></div></a></div><div><a href="/post/1b30ed52.html" title="Java并发编程2"><img class="cover" src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-19</div><div class="title">Java并发编程2</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">xt5una</div><div class="author-info__description">一个乐于学习技术的胶佬</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:xtsuna@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">Lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLambda%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Lambda？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.2.</span> <span class="toc-text">函数式接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">Lambda表达式有什么用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">Lambda表达式基础语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.5.</span> <span class="toc-text">四大核心函数式接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/9fee965f.html" title="Hi there！"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hi there！"/></a><div class="content"><a class="title" href="/post/9fee965f.html" title="Hi there！">Hi there！</a><time datetime="2022-08-19T13:02:30.727Z" title="发表于 2022-08-19 21:02:30">2022-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Gateway路由配置从数据库或Redis获取"/></a><div class="content"><a class="title" href="/post/88c43986.html" title="Gateway路由配置从数据库或Redis获取">Gateway路由配置从数据库或Redis获取</a><time datetime="2020-11-16T03:48:15.000Z" title="发表于 2020-11-16 11:48:15">2020-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Cloud之Feign 转发请求头(header参数)"/></a><div class="content"><a class="title" href="/post/2b55084.html" title="Spring Cloud之Feign 转发请求头(header参数)">Spring Cloud之Feign 转发请求头(header参数)</a><time datetime="2020-08-16T03:38:54.000Z" title="发表于 2020-08-16 11:38:54">2020-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/aec29945.html" title="Java8新特性——Optional"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java8新特性——Optional"/></a><div class="content"><a class="title" href="/post/aec29945.html" title="Java8新特性——Optional">Java8新特性——Optional</a><time datetime="2020-07-30T07:32:50.000Z" title="发表于 2020-07-30 15:32:50">2020-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/8d0c03bf.html" title="Java8新特性——Stream流"><img src="https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java8新特性——Stream流"/></a><div class="content"><a class="title" href="/post/8d0c03bf.html" title="Java8新特性——Stream流">Java8新特性——Stream流</a><time datetime="2020-06-12T05:40:55.000Z" title="发表于 2020-06-12 13:40:55">2020-06-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://w.wallhaven.cc/full/l3/wallhaven-l38gmr.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By xt5una</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
